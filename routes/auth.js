@@ -69,6 +69,7 @@ router.post('/login', function (req, res, next) {
         if (err) { return next(err) }
         // generate token and refresh token after login
         const token = authenticate.generateAccessToken(user.toJSON())
+        const expirationDate = authenticate.getExpirationDate()
         // const refreshToken = authenticate.generateRefreshToken(user.toJSON())
         // add the refresh token to storage
         // refreshTokens.push(refreshToken)
@@ -79,9 +80,11 @@ router.post('/login', function (req, res, next) {
           secure: true,
           sameSite: 'none',
         });
+
+        // Set the expiration time in another cookie
+        res.cookie('jwtExpiration', expirationDate.toUTCString());
   
-        // Return a response with the refresh token
-        return res.json({ success: true, token });
+        return res.status(201).json({ success: true });
     });
   })(req, res, next); // invoke the middleware function returned by passport.authenticate()
 });
