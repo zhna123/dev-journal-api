@@ -70,10 +70,14 @@ router.post('/login', function (req, res, next) {
         // generate token and refresh token after login
         const token = authenticate.generateAccessToken(user.toJSON())
         const expirationDate = authenticate.getExpirationDate()
+        
+        // *************** commented lines are for refresh tokens ****************
         // const refreshToken = authenticate.generateRefreshToken(user.toJSON())
         // add the refresh token to storage
         // refreshTokens.push(refreshToken)
         // return res.json({token, refreshToken});
+        // *************** commented lines are for refresh tokens ****************
+
         // Set the token as an HTTP-only cookie
         res.cookie('jwt', token, { 
           httpOnly: true,
