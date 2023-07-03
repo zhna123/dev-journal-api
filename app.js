@@ -16,7 +16,8 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:8091',
-    'http://localhost:8090'
+    'http://localhost:8090',
+    'https://dev-journal-psi.vercel.app'
   ],
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
