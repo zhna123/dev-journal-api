@@ -11,6 +11,8 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const authRouter = require('./routes/auth');
 
+require("./mongoConfig")
+
 const app = express();
 
 app.use(cors({
@@ -23,15 +25,6 @@ app.use(cors({
   credentials: true,
   exposedHeaders: ['Authorization']
 }))
-// Set up mongoose connection
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGO_URI;
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-}
 
 app.use(logger('dev'));
 app.use(cookieParser());

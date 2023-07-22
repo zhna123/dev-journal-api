@@ -5,11 +5,11 @@ const bcrypt =require("bcryptjs")
 const User = require("../models/user")
 
 exports.index = asyncHandler(async(req, res, next) => {
-  res.send("home page is not implemented yet")
+  res.status(501).send("home page is not implemented")
 })
 
 exports.signup_get = asyncHandler(async(req, res, next) => {
-  res.send("sign-up get request is not implemented yet")
+  res.status(501).send("sign-up get request is not implemented")
 })
 
 exports.signup_post = [
@@ -26,20 +26,21 @@ exports.signup_post = [
   .withMessage("password is required"),
 
   asyncHandler(async(req, res, next) => {
+
     const errors = validationResult(req);
     const user = new User({
       username: req.body.username,
     });
     if(!errors.isEmpty) {
-      res.send("sign up validation error:" + errors.array())
+      res.status(403).send("sign up validation error:" + errors.array())
     } else {
       bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
         if (err) {
           return next(err)
-        }else {
+        } else {
           user.password = hashedPassword;
           await user.save();
-          res.send("user signed up successfully")
+          res.status(201).send("user signed up successfully")
         }
       })
     }

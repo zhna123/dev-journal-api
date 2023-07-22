@@ -14,8 +14,13 @@ Implemented using ExpressJS
 ## What I have learned
 * Design flexible rest APIs
   - use query paremeters
+* Handle CORS 
 * Implemented JWT authentication to block unauthorized access to protected routes
 * Use refresh tokens for added security(I laid out the basics, but didn't use it in this project)
 * Handle and return errors
+* Testing routes 
+
+## Development & Testing
+`npm run serverstart`
 
 ## Deployment
