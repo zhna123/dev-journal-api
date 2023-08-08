@@ -3,6 +3,7 @@ const { body, validationResult} = require("express-validator")
 
 const bcrypt =require("bcryptjs")
 const User = require("../models/user")
+const { saveUser } = require("../db/dbOps")
 
 exports.index = asyncHandler(async(req, res, next) => {
   res.status(501).send("home page is not implemented")
@@ -31,16 +32,16 @@ exports.signup_post = [
     const user = new User({
       username: req.body.username,
     });
-    if(!errors.isEmpty) {
-      res.status(403).send("sign up validation error:" + errors.array())
+    if(!errors.isEmpty()) {
+      res.status(400).json({...errors.array()})
     } else {
       bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
         if (err) {
           return next(err)
         } else {
           user.password = hashedPassword;
-          await user.save();
-          res.status(201).send("user signed up successfully")
+          await saveUser(user);
+          res.status(201).json({msg: "user signed up successfully"})
         }
       })
     }

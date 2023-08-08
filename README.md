@@ -1,5 +1,10 @@
 # A Developer's Journal backend API
-Implemented using ExpressJS
+
+Implemented with
+
+* ExpressJS
+* MongoDB + Mongoose
+* Jest(testing)
 
 ## APIs
 * Display all blog posts: GET `/posts`
@@ -16,9 +21,7 @@ Implemented using ExpressJS
   - use query paremeters
 * Handle CORS 
 * Implemented JWT authentication to block unauthorized access to protected routes
-* Use refresh tokens for added security(I laid out the basics, but didn't use it in this project)
-* Handle and return errors
-* Testing routes 
+* Testing routes (unit testing and testing with postman)
 
 ## Development & Testing
 `npm run serverstart`
