@@ -1,29 +1,26 @@
 const asyncHandler = require("express-async-handler")
 const { body, validationResult} = require("express-validator")
 
-const Post = require("../models/post")
+const Post = require("../models/post");
+const { findAllPosts, findPostById } = require("../db/dbOps");
 
 exports.post_list = asyncHandler(async(req, res, next) => {  
   const { published } = req.query;
   // see if published parameter is provided, if so check the value
   if (published && published === 'true') {  
     // retrieving published posts only
-    const allPosts = await Post.find({is_published: true})
-    .sort({ date_created: -1})
-    .exec();
-    return res.json(allPosts)  
+    const allPosts = await findAllPosts({is_published: published})
+    return res.status(200).json(allPosts)  
   } 
   // all other scenarios need authorization
   // retrieving all posts
-  const allPosts = await Post.find()
-  .sort({ date_created: -1})
-  .exec();
-  return res.json(allPosts) 
+  const allPosts = await findAllPosts({})
+  return res.status(200).json(allPosts) 
 })
 
 exports.post_detail = asyncHandler(async(req, res, next) => {
 
-  const post = await Post.findById(req.params.postId).exec();
+  const post = await findPostById(req.params.postId);
   if (post === null) {
     // no result
     const err = new Error("Post not found");
@@ -40,10 +37,10 @@ exports.post_detail = asyncHandler(async(req, res, next) => {
       return next(err);
     }
     // only return if the post is actually published
-    return res.json(post)
+    return res.status(200).json(post)
   }
   // all other scenarios need authorization
-  return res.json(post)
+  return res.status(200).json(post)
 })
 
 exports.new_post = [

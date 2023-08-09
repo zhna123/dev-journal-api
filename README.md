@@ -4,7 +4,7 @@ Implemented with
 
 * ExpressJS
 * MongoDB + Mongoose
-* Jest(testing)
+* Jest + SuperTest(unit testing)
 
 ## APIs
 * Display all blog posts: GET `/posts`
@@ -21,7 +21,7 @@ Implemented with
   - use query paremeters
 * Handle CORS 
 * Implemented JWT authentication to block unauthorized access to protected routes
-* Testing routes (unit testing and testing with postman)
+* Testing routes (unit testing with Jest and SuperTest & testing with postman)
 
 ## Development & Testing
 `npm run serverstart`
