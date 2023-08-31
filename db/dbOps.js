@@ -1,10 +1,11 @@
+const Post = require("../models/post");
 
 async function saveUser(user) {
   await user.save()
 }
 
 async function findAllPosts(conditionObj) {
-  return await Post.find(conditionObj)
+  return Post.find(conditionObj)
     .sort({ date_created: -1})
     .exec();
 }
